@@ -9,14 +9,14 @@ function NotesPage() {
     useEffect(() => {
         const fetchNotes = async () => {
             try {
-                const response = await fetch('/notes/all', { // Corrected endpoint
+                const response = await fetch('/notes/all', {
                     method: 'GET',
-                    credentials: 'include', // Necessary for cookies (session)
+                    credentials: 'include',
                 });
                 if (response.ok) {
                     const data = await response.json();
                     console.log('Fetched notes:', data.notes);
-                    setNotes(data.notes || []); // Fallback to an empty array if no notes
+                    setNotes(data.notes || []);
                 } else {
                     console.error('Failed to fetch notes:', response.statusText);
                 }
@@ -28,18 +28,30 @@ function NotesPage() {
         fetchNotes();
     }, []);
 
-    const handleAddNote = (newNote) => {
-        setNotes(prevNotes => {
-            // Assuming colors are based on index, modify as needed for your use case
-            const colorIndex = prevNotes.length % 4; // Adjust the modulus for the number of colors
-            const colorClasses = ['note-purple', 'note-red', 'note-green', 'note-yellow']; // Class names for the colors
-            const noteWithColor = { ...newNote, colorClass: colorClasses[colorIndex] };
-            const newNotesArray = [...prevNotes, noteWithColor]; // This is your new array of notes
-            console.log('Updated notes:', newNotesArray); // Log the new array
-            return newNotesArray; // Return the new array to update the state
-        });
-    };
+    const handleAddNote = async (newNoteData) => {
+        try {
+            const response = await fetch('/notes/create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newNoteData),
+                credentials: 'include',
+            });
 
+            if (response.ok) {
+                const newNote = await response.json();
+                setNotes((prevNotes) => [
+                    ...prevNotes,
+                    { ...newNote.newNote, colorClass: newNote.newNote.colorClass }
+                ]);
+            } else {
+                console.error('Failed to create a new note:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error creating a new note:', error);
+        }
+    };
 
 
     return (

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../../styles/Notes.css'; // Ensure the path is correct
+import '../../styles/Notes.css';
 
 function NoteEditor({ onAddNote }) {
     const [title, setTitle] = useState('');
@@ -8,7 +8,7 @@ function NoteEditor({ onAddNote }) {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await fetch('/notes/create', { // Corrected endpoint
+            const response = await fetch('/notes/create', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -18,7 +18,7 @@ function NoteEditor({ onAddNote }) {
             });
             if (response.ok) {
                 const newNote = await response.json();
-                onAddNote(newNote); // Add the new note to the list
+                onAddNote(newNote.newNote); // Update the state with the new note
                 setTitle(''); // Reset the title
                 setContent(''); // Reset the content
             } else {
