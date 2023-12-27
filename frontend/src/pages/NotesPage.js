@@ -5,30 +5,34 @@ import '../styles/Notes.css';
 
 function NotesPage() {
     const [notes, setNotes] = useState([]);
+    const [isSubmitting, setIsSubmitting] = useState(false); // Track if a submission is in progress
+
+    // Function to fetch notes from the backend
+    const fetchNotes = async () => {
+        try {
+            const response = await fetch('/notes/all', {
+                method: 'GET',
+                credentials: 'include',
+            });
+            if (response.ok) {
+                const data = await response.json();
+                setNotes(data.notes || []);
+            } else {
+                console.error('Failed to fetch notes:', response.statusText);
+            }
+        } catch (error) {
+            console.error('There was an error fetching the notes:', error);
+        }
+    };
 
     useEffect(() => {
-        const fetchNotes = async () => {
-            try {
-                const response = await fetch('/notes/all', {
-                    method: 'GET',
-                    credentials: 'include',
-                });
-                if (response.ok) {
-                    const data = await response.json();
-                    console.log('Fetched notes:', data.notes);
-                    setNotes(data.notes || []);
-                } else {
-                    console.error('Failed to fetch notes:', response.statusText);
-                }
-            } catch (error) {
-                console.error('There was an error fetching the notes:', error);
-            }
-        };
-
-        fetchNotes();
-    }, []);
+        fetchNotes(); // Fetch notes on component mount
+    }, []); // Ensures this effect runs only once after the initial render
 
     const handleAddNote = async (newNoteData) => {
+        if (isSubmitting) return; // Prevent multiple submissions
+        setIsSubmitting(true);
+
         try {
             const response = await fetch('/notes/create', {
                 method: 'POST',
@@ -40,19 +44,16 @@ function NotesPage() {
             });
 
             if (response.ok) {
-                const newNote = await response.json();
-                setNotes((prevNotes) => [
-                    ...prevNotes,
-                    { ...newNote.newNote, colorClass: newNote.newNote.colorClass }
-                ]);
+                await fetchNotes(); // Re-fetch notes from backend to update the state
             } else {
                 console.error('Failed to create a new note:', response.statusText);
             }
         } catch (error) {
             console.error('Error creating a new note:', error);
+        } finally {
+            setIsSubmitting(false); // Reset the submission status
         }
     };
-
 
     return (
         <div className="notes-page">

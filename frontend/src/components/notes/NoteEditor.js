@@ -4,9 +4,13 @@ import '../../styles/Notes.css';
 function NoteEditor({ onAddNote }) {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [submitting, setSubmitting] = useState(false);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        if (submitting) return; // Prevent multiple submissions
+        setSubmitting(true);
+
         try {
             const response = await fetch('/notes/create', {
                 method: 'POST',
@@ -26,6 +30,8 @@ function NoteEditor({ onAddNote }) {
             }
         } catch (error) {
             console.error('There was an error adding the note:', error);
+        } finally {
+            setSubmitting(false); // Reset the submitting state
         }
     };
 
@@ -45,7 +51,7 @@ function NoteEditor({ onAddNote }) {
                     placeholder="Text"
                     required
                 />
-                <button type="submit">ADD</button>
+                <button type="submit" disabled={submitting}>ADD</button>
             </form>
         </div>
     );

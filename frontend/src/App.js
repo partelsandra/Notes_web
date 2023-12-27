@@ -4,7 +4,6 @@ import './App.css';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import NotesPage from './pages/NotesPage';
-import NoteDetail from './components/notes/NoteDetail';
 
 function App() {
     return (
