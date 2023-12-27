@@ -12,9 +12,10 @@ function NoteList({ notes, onSelectNote }) {
     return (
         <div className="note-list">
             {notes.map((note, index) => (
-                <div key={note.id} className={`note ${note.colorClass}`} onClick={() => handleSelectNote(note.id)}>
+                <div key={note.id} className="note" onClick={() => handleSelectNote(note.id)}>
                     {note.title}
                 </div>
+
             ))}
         </div>
     );
