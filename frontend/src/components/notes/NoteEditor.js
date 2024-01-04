@@ -8,32 +8,20 @@ function NoteEditor({ onAddNote }) {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        if (submitting) return; // Prevent multiple submissions
+        if (submitting) return;
         setSubmitting(true);
 
         try {
-            const response = await fetch('/notes/create', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                credentials: 'include', // Include cookies for session-based auth
-                body: JSON.stringify({ title, content }),
-            });
-            if (response.ok) {
-                const newNote = await response.json();
-                onAddNote(newNote.newNote); // Update the state with the new note
-                setTitle(''); // Reset the title
-                setContent(''); // Reset the content
-            } else {
-                console.error('Failed to add note', response.statusText);
-            }
+            await onAddNote({ title, content }); // Use onAddNote from NotesPage
+            setTitle(''); // Reset the title
+            setContent(''); // Reset the content
         } catch (error) {
             console.error('There was an error adding the note:', error);
         } finally {
             setSubmitting(false); // Reset the submitting state
         }
     };
+
 
     return (
         <div className="note-editor">
