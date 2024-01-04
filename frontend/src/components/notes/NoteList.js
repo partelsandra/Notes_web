@@ -1,21 +1,20 @@
 import React from 'react';
-import '../../styles/Notes.css'; // Assuming Notes.css will be in the styles folder
-import { useNavigate } from 'react-router-dom';
+import '../../styles/Notes.css';
 
-function NoteList({ notes, onSelectNote }) {
-    const navigate = useNavigate();
-
-    const handleSelectNote = (noteId) => {
-        navigate(`/notes/${noteId}`);
-    };
-
+function NoteList({ notes, onEdit, onDelete }) {
     return (
         <div className="note-list">
             {notes.map((note, index) => (
-                <div key={note.id} className="note" onClick={() => handleSelectNote(note.id)}>
-                    {note.title}
+                <div key={index} className="note-item">
+                    {note && (
+                        <>
+                            {note.title && <h3>{note.title}</h3>}
+                            {note.content && <p>{note.content}</p>}
+                            <button onClick={() => onEdit(note)}>Edit</button>
+                            <button onClick={() => onDelete(note.id)}>Delete</button>
+                        </>
+                    )}
                 </div>
-
             ))}
         </div>
     );

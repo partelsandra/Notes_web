@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import NoteEditor from '../components/notes/NoteEditor';
 import NoteList from '../components/notes/NoteList';
 import '../styles/Notes.css';
 
 function NotesPage() {
     const [notes, setNotes] = useState([]);
-    const [isSubmitting, setIsSubmitting] = useState(false); // Track if a submission is in progress
+    const [currentNote, setCurrentNote] = useState(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const navigate = useNavigate();
 
-    // Function to fetch notes from the backend
     const fetchNotes = async () => {
         try {
             const response = await fetch('/notes/all', {
@@ -26,39 +28,74 @@ function NotesPage() {
     };
 
     useEffect(() => {
-        fetchNotes(); // Fetch notes on component mount
-    }, []); // Ensures this effect runs only once after the initial render
+        fetchNotes();
+    }, []);
 
-    const handleAddNote = async (newNoteData) => {
-        if (isSubmitting) return; // Prevent multiple submissions
+    const handleAddOrUpdateNote = async (noteData) => {
         setIsSubmitting(true);
+        let url = '/notes/create';
+        let method = 'POST';
+        if (currentNote) {
+            url = `/notes/${currentNote.id}`;
+            method = 'PUT';
+        }
 
         try {
-            const response = await fetch('/notes/create', {
-                method: 'POST',
+            const response = await fetch(url, {
+                method: method,
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(newNoteData),
+                body: JSON.stringify(noteData),
                 credentials: 'include',
             });
 
             if (response.ok) {
-                await fetchNotes(); // Re-fetch notes from backend to update the state
+                const updatedNotes = await response.json();
+                if (currentNote) {
+                    setNotes(notes.map((note) => (note.id === currentNote.id ? updatedNotes.note : note)));
+                } else {
+                    setNotes([...notes, updatedNotes.note]);
+                }
+                setCurrentNote(null);
             } else {
-                console.error('Failed to create a new note:', response.statusText);
+                console.error('Failed to add/update note:', response.statusText);
             }
         } catch (error) {
-            console.error('Error creating a new note:', error);
+            console.error('Error adding/updating note:', error);
         } finally {
-            setIsSubmitting(false); // Reset the submission status
+            setIsSubmitting(false);
+        }
+    };
+
+    const onEdit = (note) => {
+        setCurrentNote(note);
+    };
+
+    const onDelete = async (noteId) => {
+        if (!window.confirm('Are you sure you want to delete this note?')) return;
+        setIsSubmitting(true);
+        try {
+            const response = await fetch(`/notes/${noteId}`, {
+                method: 'DELETE',
+                credentials: 'include',
+            });
+            if (response.ok) {
+                setNotes(notes.filter((note) => note.id !== noteId));
+            } else {
+                console.error('Failed to delete note');
+            }
+        } catch (error) {
+            console.error('Error deleting note:', error);
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
     return (
         <div className="notes-page">
-            <NoteEditor onAddNote={handleAddNote} />
-            <NoteList notes={notes} onSelectNote={(note) => console.log('Selected note:', note)} />
+            <NoteEditor onAddOrUpdateNote={handleAddOrUpdateNote} currentNote={currentNote} />
+            <NoteList notes={notes} onEdit={onEdit} onDelete={onDelete} />
         </div>
     );
 }
