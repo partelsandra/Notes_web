@@ -89,10 +89,31 @@ function NotesPage() {
         }
     };
 
+
+    const handleLogout = async () => {
+        try {
+            const response = await fetch('/logout', {
+                method: 'POST',
+                credentials: 'include',
+            });
+
+            if (response.ok) {
+                navigate('/login'); // Redirect to the login page after successful logout
+            } else {
+                console.error('Logout failed:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error logging out:', error);
+        }
+    };
+
     return (
         <div className="notes-page">
             <NoteEditor onAddOrUpdateNote={handleAddOrUpdateNote} currentNote={currentNote} />
             <NoteList notes={notes} onEdit={onEdit} onDelete={onDelete} />
+            <button className="logout-button" onClick={handleLogout}>
+                Logout
+            </button>
         </div>
     );
 }
