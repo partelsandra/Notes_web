@@ -18,7 +18,7 @@ function Login({ onLogin }) {
 
             if (response.ok) {
                 // Handle successful login, e.g., redirect to a dashboard page
-                window.location.href = '/dashboard'; // Replace with your actual redirect URL
+                window.location.href = '/notes'; // Replace with your actual redirect URL
             } else {
                 const data = await response.text();
                 alert(data); // Display the error message as a plain text alert

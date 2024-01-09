@@ -1,14 +1,23 @@
-import React from 'react';
-import Register from '../components/auth/Register'; // Adjust the path as needed
+import React, { useState } from 'react';
+import Register from '../components/auth/Register';
 
 function RegisterPage() {
-    // Implement any additional logic or state here if necessary
+    const [registrationStatus, setRegistrationStatus] = useState(null);
+
+    const handleRegistration = (data) => {
+        if (data.message === 'Registration successful') {
+            setRegistrationStatus('success');
+        } else {
+            setRegistrationStatus('failure');
+        }
+    };
 
     return (
-        <Register onRegister={(data) => {
-            console.log('Registration successful', data);
-            // Redirect to login or another page
-        }} />
+        <div>
+            {registrationStatus === 'success' && <div>Registration successful! You can now log in.</div>}
+            {registrationStatus === 'failure' && <div>Registration failed. Please try again.</div>}
+            <Register onRegister={handleRegistration} />
+        </div>
     );
 }
 

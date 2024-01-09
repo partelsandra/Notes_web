@@ -41,7 +41,7 @@ function Register({ onRegister }) {
             const data = await response.json();
             if (response.ok) {
                 // Call the onRegister prop with the data, which could include user info and tokens
-                onRegister(data);
+                onRegister({ message: 'Registration successful' });
             } else {
                 // Backend validation errors or other issues
                 setErrors([data.message || 'Failed to register']);
