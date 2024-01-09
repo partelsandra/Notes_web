@@ -7,7 +7,6 @@ import '../styles/Notes.css';
 function NotesPage() {
     const [notes, setNotes] = useState([]);
     const [currentNote, setCurrentNote] = useState(null);
-    const [isSubmitting, setIsSubmitting] = useState(false);
     const navigate = useNavigate();
 
     const fetchNotes = async () => {
@@ -32,7 +31,6 @@ function NotesPage() {
     }, []);
 
     const handleAddOrUpdateNote = async (noteData) => {
-        setIsSubmitting(true);
         let url = '/notes/create';
         let method = 'POST';
         if (currentNote) {
@@ -58,13 +56,14 @@ function NotesPage() {
                     setNotes([...notes, updatedNotes.note]);
                 }
                 setCurrentNote(null);
+
+                // Fetch the notes again to ensure you have the latest data
+                fetchNotes();
             } else {
                 console.error('Failed to add/update note:', response.statusText);
             }
         } catch (error) {
             console.error('Error adding/updating note:', error);
-        } finally {
-            setIsSubmitting(false);
         }
     };
 
@@ -74,7 +73,7 @@ function NotesPage() {
 
     const onDelete = async (noteId) => {
         if (!window.confirm('Are you sure you want to delete this note?')) return;
-        setIsSubmitting(true);
+
         try {
             const response = await fetch(`/notes/${noteId}`, {
                 method: 'DELETE',
@@ -87,8 +86,6 @@ function NotesPage() {
             }
         } catch (error) {
             console.error('Error deleting note:', error);
-        } finally {
-            setIsSubmitting(false);
         }
     };
 
