@@ -1,70 +1,69 @@
-# Getting Started with Create React App
+# Notebook Web Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a web-based notebook application where users can register, log in, and manage their notes. The backend is built on the Node.js framework, and the frontend is created with React.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- User registration and authentication
+- Add, edit, and delete notes
+- Responsive design for desktop and mobile usage
 
-### `npm start`
+## User Stories
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- As a new user, I want to for an account so that I can securely store and manage my notes.
+- As a returning user, I want to sign in to my account to access my notes.
+- As a user, I want to add new notes with a title and body so that I can keep track of my thoughts and tasks.
+- As a user, I want to edit my notes in order to update the content or correct mistakes.
+- As a user, I want to delete notes that are no longer needed to keep my notebook organized.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Getting Started
 
-### `npm test`
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Prerequisites
 
-### `npm run build`
+What you need to install the software:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Node.js
+- npm (Node Package Manager)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Installing
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+A step-by-step series of examples that tell you how to get a development environment running:
 
-### `npm run eject`
+1. Clone the repository to your local machine:
+2. Navigate to the project directory:
+3. Install the required packages:
+4. Start the development server:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+The application should now be running on [http://localhost:3000](http://localhost:3000).
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Deployment
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+This section provides a general guide on how to deploy the Notebook Web Application to a live system. The following steps assume that you have already built the application with `npm run build`.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Pre-requisites
 
-## Learn More
+- A server with Node.js installed.
+- MySQL Server setup with the necessary database and tables created.
+- Environment variables for database connection, and any other sensitive information.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Steps
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Upload the build directory to your server. This can be done via FTP, SSH, or any method you prefer.
 
-### Code Splitting
+2. On the server, navigate to the uploaded directory and install production dependencies:
+   ```bash
+   npm install --only=production
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Built With
 
-### Making a Progressive Web App
+- [React](https://reactjs.org/) - The web framework used
+- [Node.js](https://nodejs.org/) - The backend framework
+- [MySQL](https://www.mysql.com/) - Database platform
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Screenshots
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Include screenshots of your application in action here.
