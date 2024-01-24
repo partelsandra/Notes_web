@@ -18,7 +18,7 @@ This is a web-based notebook application where users can register, log in, and m
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+These instructions will help you set up and run the project locally on your machine for development and testing purposes.
 
 ### Prerequisites
 
@@ -32,38 +32,23 @@ What you need to install the software:
 A step-by-step series of examples that tell you how to get a development environment running:
 
 1. Clone the repository to your local machine:
-2. Navigate to the project directory:
+
+   ```bash
+   git clone https://github.com/partelsandra/Notes_web
+
+2. Navigate to the project directory: 
+   cd Notes_web
+
 3. Install the required packages:
+   npm install
+
 4. Start the development server:
+   npm start
 
 The application should now be running on [http://localhost:3000](http://localhost:3000).
-
-## Deployment
-
-This section provides a general guide on how to deploy the Notebook Web Application to a live system. The following steps assume that you have already built the application with `npm run build`.
-
-### Pre-requisites
-
-- A server with Node.js installed.
-- MySQL Server setup with the necessary database and tables created.
-- Environment variables for database connection, and any other sensitive information.
-
-### Steps
-
-1. Upload the build directory to your server. This can be done via FTP, SSH, or any method you prefer.
-
-2. On the server, navigate to the uploaded directory and install production dependencies:
-   ```bash
-   npm install --only=production
-
-
 
 ## Built With
 
 - [React](https://reactjs.org/) - The web framework used
 - [Node.js](https://nodejs.org/) - The backend framework
 - [MySQL](https://www.mysql.com/) - Database platform
-
-## Screenshots
-
-Include screenshots of your application in action here.
