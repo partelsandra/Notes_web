@@ -37,18 +37,39 @@ A step-by-step series of examples that tell you how to get a development environ
    git clone https://github.com/partelsandra/Notes_web
 
 2. Navigate to the project directory: 
+   ```bash
    cd Notes_web
 
 3. Install the required packages:
+   ```bash
+   cd backend
+   npm install
+   cd ../frontend
    npm install
 
-4. Start the development server:
+## Running the Application
+
+To run the backend and frontend services, you will need to start each one separately as they will run on different ports:
+
+1. Starting the Backend
+Navigate to the backend directory and start the server:
+   ```bash
+   cd backend
    npm start
 
-The application should now be running on [http://localhost:3000](http://localhost:3000).
+The backend service should now be running on http://localhost:3000.
+
+2. Starting the Frontend
+In a new terminal window, navigate to the frontend directory and start the React application:
+   ```bash
+   cd frontend
+   npm start
+
+The frontend service will automatically find an available port, usually http://localhost:3001, if 3000 is already in use.
 
 ## Built With
 
 - [React](https://reactjs.org/) - The web framework used
 - [Node.js](https://nodejs.org/) - The backend framework
+- [Express.js](...) - The web application framework used on the backend
 - [MySQL](https://www.mysql.com/) - Database platform
