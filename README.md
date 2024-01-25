@@ -51,7 +51,7 @@ A step-by-step series of examples that tell you how to get a development environ
 
 To run the backend and frontend services, you will need to start each one separately as they will run on different ports:
 
-1. **Starting the Backend**
+1. **Starting the Backend:**
 Navigate to the backend directory and start the server:
    ```bash
    cd backend
@@ -59,7 +59,7 @@ Navigate to the backend directory and start the server:
 
 The backend service should now be running on http://localhost:3000.
 
-2. **Starting the Frontend**
+2. **Starting the Frontend:**
 In a new terminal window, navigate to the frontend directory and start the React application:
    ```bash
    cd frontend
