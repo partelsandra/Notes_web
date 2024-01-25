@@ -55,7 +55,7 @@ To run the backend and frontend services, you will need to start each one separa
 Navigate to the backend directory and start the server:
    ```bash
    cd backend
-   npm start
+   node server.js
 
 The backend service should now be running on http://localhost:3000.
 
